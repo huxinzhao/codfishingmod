@@ -9,7 +9,7 @@ No other mods are required.
 
 Installation and updates
 1. Close the game and back up your save before updating.
-2. Download the mod ZIP from GitHub Releases, not the source-code archive.
+2. Download the mod ZIP from Nexus Mods or GitHub Releases, not the source-code archive.
 3. Extract the entire "cod fishing mod" folder into the game's Mods folder.
 4. When updating from the old two-folder version, remove "[CP] KeniOctopus"
    and "KeniOctopus Quest Runtime" first. Do not keep duplicate versions.
@@ -21,6 +21,8 @@ active legacy special order using the old version, or migrate and save with
 version 1.4.0–1.5.0 before updating. Current ordinary quests can continue.
 
 Tips
+- Starting with 1.5.4, SMAPI checks Nexus for updates and provides a download link.
+- SMAPI does not download or install updates automatically.
 - English and Simplified Chinese follow the game's language setting.
 - Watch your mailbox and quest journal for clues.
 - Try fishing at different times and in different weather.

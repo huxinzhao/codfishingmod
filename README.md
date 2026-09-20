@@ -9,12 +9,15 @@ New sea creatures and fishing stories for Stardew Valley, in Simplified Chinese 
 
 **[下载可直接安装的最新版 / Download the latest release](https://github.com/huxinzhao/codfishingmod/releases/latest)**
 
+[Nexus Mods 下载与更新 / Nexus Mods downloads and updates](https://www.nexusmods.com/stardewvalley/mods/52606)
+
 选择发布附件 cod-fishing-mod-VERSION.zip，解压后将 cod fishing mod 文件夹放入游戏 Mods 文件夹。GitHub 的 Source code 和 Code → Download ZIP 是源码，不包含 DLL，不能直接安装。
 
 Download the cod-fishing-mod-VERSION.zip release asset and extract its cod fishing mod folder into Mods. GitHub's source-code archives do not include the compiled DLL.
 
 - Stardew Valley **1.6.15+**；SMAPI **4.5.1+**。
 - 无需其他前置模组 / No other mods required.
+- 从 1.5.4 起，SMAPI 会检查 Nexus 新版本并提供下载提示，不会自动安装更新。 / Starting with 1.5.4, SMAPI checks Nexus for updates and provides a download link; it does not install updates automatically.
 - [中文安装说明](outputs/cod%20fishing%20mod/安装说明.txt) · [English installation guide](outputs/cod%20fishing%20mod/INSTALL.txt)
 
 更新前备份存档。旧版特殊订单不再自动迁移；请先在旧版完成，或通过 1.4.0–1.5.0 迁移并保存。新版普通任务进度可以保留。勿同时安装旧版两个文件夹和新版文件夹。
@@ -34,6 +37,7 @@ Validated locally on Windows with PowerShell 7.6.5. The scripts use PowerShell's
 ~~~powershell
 pwsh -File ./src/build.ps1 -GameDir "D:/Games/Stardew Valley"
 pwsh -File ./src/check.ps1 -GameDir "D:/Games/Stardew Valley"
+pwsh -File ./src/package.ps1
 ~~~
 
 也可设置 STARDEW_GAME_PATH 环境变量并省略 -GameDir。检查脚本会在独立进程中运行各项检查，避免测试类型冲突。检查不等于游戏内实测。

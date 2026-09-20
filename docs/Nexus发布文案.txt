@@ -1,0 +1,33 @@
+cod fishing mod
+Author: florain
+Version: 1.5.4
+
+Summary
+Meet new sea creatures and discover fishing stories in Stardew Valley. Includes new fishing quests and a special fish pond. English and Simplified Chinese supported.
+
+Description
+Bring your fishing rod and meet some unusual new residents of the ocean.
+Watch your mailbox and quest journal for new fishing stories, and give a special catch a home in your fish pond.
+
+Requirements
+Stardew Valley 1.6.15+
+SMAPI 4.5.1+
+No other mods required.
+
+Installation
+Extract the cod fishing mod folder into Mods, then launch through SMAPI.
+For updates, back up your save and replace the previous installation.
+Remove the old [CP] KeniOctopus and KeniOctopus Quest Runtime folders if present.
+Legacy special-order progress is no longer migrated automatically; finish those orders on the old version or migrate and save with 1.4.0–1.5.0 before updating.
+
+Validation
+Build and automated checks passed. Not tested in-game by the authoring assistant.
+
+Source
+https://github.com/huxinzhao/codfishingmod
+
+中文介绍
+带上鱼竿，认识海洋里奇妙的新住客。
+新增钓鱼任务与特殊鱼塘内容，留意信箱与任务日志，在日常垂钓中发现新故事。
+支持简体中文和英文，需要 Stardew Valley 1.6.15+、SMAPI 4.5.1+，无需其他前置模组。
+将 cod fishing mod 文件夹解压至 Mods，通过 SMAPI 启动游戏。
