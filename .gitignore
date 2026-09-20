@@ -1,0 +1,15 @@
+# Generated release archives and compiled binaries
+outputs/*.zip
+*.dll
+*.pdb
+bin/
+obj/
+
+# Local editor and operating-system files
+.vs/
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+*.user
+*.suo

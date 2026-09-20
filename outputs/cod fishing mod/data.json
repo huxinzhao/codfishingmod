@@ -1,0 +1,299 @@
+{
+  "Objects": {
+    "Xinzh.KeniOctopus_Fish": {
+      "Name": "Keni Octopus",
+      "DisplayName": "{{i18n:fish.keni.name}}",
+      "Description": "{{i18n:fish.keni.description}}",
+      "Type": "Fish",
+      "Category": -4,
+      "Price": 200,
+      "Edibility": 50,
+      "Texture": "Mods/Xinzh.KeniOctopus/Fish",
+      "SpriteIndex": 0,
+      "ContextTags": [
+        "fish_ocean",
+        "season_spring",
+        "season_summer",
+        "season_fall",
+        "color_dark_red",
+        "xinzh_keni_octopus"
+      ]
+    },
+    "Xinzh.KeniOctopus_SeaHareKe": {
+      "Name": "Sea Hare Ke",
+      "DisplayName": "{{i18n:fish.seahare.ke.name}}",
+      "Description": "{{i18n:fish.seahare.ke.description}}",
+      "Type": "Fish",
+      "Category": -4,
+      "Price": 150,
+      "Edibility": 20,
+      "Texture": "Mods/Xinzh.KeniOctopus/SeaHareKe",
+      "SpriteIndex": 0,
+      "ContextTags": [
+        "fish_ocean",
+        "season_spring",
+        "season_summer",
+        "season_fall",
+        "season_winter",
+        "xinzh_seahare_ke"
+      ],
+      "ExcludeFromRandomSale": true
+    },
+    "Xinzh.KeniOctopus_SeaHareNi": {
+      "Name": "Sea Hare Ni",
+      "DisplayName": "{{i18n:fish.seahare.ni.name}}",
+      "Description": "{{i18n:fish.seahare.ni.description}}",
+      "Type": "Fish",
+      "Category": -4,
+      "Price": 200,
+      "Edibility": 24,
+      "Texture": "Mods/Xinzh.KeniOctopus/SeaHareNi",
+      "SpriteIndex": 0,
+      "ContextTags": [
+        "fish_ocean",
+        "season_spring",
+        "season_summer",
+        "season_fall",
+        "season_winter",
+        "xinzh_seahare_ni"
+      ],
+      "ExcludeFromRandomSale": true
+    },
+    "Xinzh.KeniOctopus_SeaHareKeegan": {
+      "Name": "Sea Hare Keegan",
+      "DisplayName": "{{i18n:fish.seahare.keegan.name}}",
+      "Description": "{{i18n:fish.seahare.description}}",
+      "Type": "Fish",
+      "Category": -4,
+      "Price": 160,
+      "Edibility": 24,
+      "Texture": "Mods/Xinzh.KeniOctopus/SeaHareKeegan",
+      "SpriteIndex": 0,
+      "ContextTags": [
+        "fish_ocean",
+        "season_spring",
+        "season_summer",
+        "season_fall",
+        "season_winter",
+        "xinzh_seahare_keegan"
+      ],
+      "ExcludeFromRandomSale": true
+    },
+    "Xinzh.KeniOctopus_SeaHareKonig": {
+      "Name": "Sea Hare Konig",
+      "DisplayName": "{{i18n:fish.seahare.konig.name}}",
+      "Description": "{{i18n:fish.seahare.konig.description}}",
+      "Type": "Fish",
+      "Category": -4,
+      "Price": 180,
+      "Edibility": 36,
+      "Texture": "Mods/Xinzh.KeniOctopus/SeaHareKonig",
+      "SpriteIndex": 0,
+      "ContextTags": [
+        "fish_ocean",
+        "season_spring",
+        "season_summer",
+        "season_fall",
+        "season_winter",
+        "xinzh_seahare_konig"
+      ],
+      "ExcludeFromRandomSale": true
+    },
+    "Xinzh.KeniOctopus_SeaHareGhost": {
+      "Name": "Sea Hare Ghost",
+      "DisplayName": "{{i18n:fish.seahare.ghost.name}}",
+      "Description": "{{i18n:fish.seahare.ghost.description}}",
+      "Type": "Fish",
+      "Category": -4,
+      "Price": 160,
+      "Edibility": 26,
+      "Texture": "Mods/Xinzh.KeniOctopus/SeaHareGhost",
+      "SpriteIndex": 0,
+      "ContextTags": [
+        "fish_ocean",
+        "season_spring",
+        "season_summer",
+        "season_fall",
+        "season_winter",
+        "xinzh_seahare_ghost"
+      ],
+      "ExcludeFromRandomSale": true
+    },
+    "Xinzh.KeniOctopus_SeaHareSoap": {
+      "Name": "Sea Hare Soap",
+      "DisplayName": "{{i18n:fish.seahare.soap.name}}",
+      "Description": "{{i18n:fish.seahare.soap.description}}",
+      "Type": "Fish",
+      "Category": -4,
+      "Price": 120,
+      "Edibility": 24,
+      "Texture": "Mods/Xinzh.KeniOctopus/SeaHareSoap",
+      "SpriteIndex": 0,
+      "ContextTags": [
+        "fish_ocean",
+        "season_spring",
+        "season_summer",
+        "season_fall",
+        "season_winter",
+        "xinzh_seahare_soap"
+      ],
+      "ExcludeFromRandomSale": true
+    }
+  },
+  "Fish": {
+    "Xinzh.KeniOctopus_Fish": "Keni Octopus/100/sinker/10/208/600 800 2200 2600/spring summer fall/both/0/3/0.20/0.1/0/false",
+    "Xinzh.KeniOctopus_SeaHareKe": "Sea Hare Ke/50/mixed/3/12/600 1200/spring summer fall winter/rainy/0/3/0.25/0.1/0/false",
+    "Xinzh.KeniOctopus_SeaHareNi": "Sea Hare Ni/75/dart/3/12/1200 1800/spring summer fall winter/both/0/3/0.25/0.1/0/false",
+    "Xinzh.KeniOctopus_SeaHareKeegan": "Sea Hare Keegan/70/floater/3/12/1800 2200/spring summer fall winter/both/0/3/0.25/0.1/0/false",
+    "Xinzh.KeniOctopus_SeaHareKonig": "Sea Hare Konig/60/sinker/3/12/2200 2600/spring summer fall winter/both/0/3/0.25/0.1/0/false",
+    "Xinzh.KeniOctopus_SeaHareGhost": "Sea Hare Ghost/65/dart/3/12/1000 1600/spring summer fall winter/both/0/3/0.25/0.1/0/false",
+    "Xinzh.KeniOctopus_SeaHareSoap": "Sea Hare Soap/40/smooth/3/12/1600 2200/spring summer fall winter/sunny/0/3/0.25/0.1/0/false"
+  },
+  "Locations": {
+    "Beach": [
+      {
+        "IgnoreFishDataRequirements": false,
+        "Id": "Xinzh.KeniOctopus_Spawn",
+        "ItemId": "(O)Xinzh.KeniOctopus_Fish",
+        "Condition": "SEASON spring summer fall",
+        "Chance": 1.0,
+        "CanBeInherited": false
+      },
+      {
+        "Condition": "PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_SeaHareUnlocked",
+        "Chance": 1.0,
+        "IgnoreFishDataRequirements": false,
+        "CanBeInherited": false,
+        "Id": "Xinzh.KeniOctopus_SeaHareKe_Ocean",
+        "ItemId": "(O)Xinzh.KeniOctopus_SeaHareKe"
+      },
+      {
+        "Condition": "PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_SeaHareUnlocked",
+        "Chance": 1.0,
+        "IgnoreFishDataRequirements": false,
+        "CanBeInherited": false,
+        "Id": "Xinzh.KeniOctopus_SeaHareNi_Ocean",
+        "ItemId": "(O)Xinzh.KeniOctopus_SeaHareNi"
+      },
+      {
+        "Condition": "PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_SeaHareUnlocked",
+        "Chance": 1.0,
+        "IgnoreFishDataRequirements": false,
+        "CanBeInherited": false,
+        "Id": "Xinzh.KeniOctopus_SeaHareKeegan_Ocean",
+        "ItemId": "(O)Xinzh.KeniOctopus_SeaHareKeegan"
+      },
+      {
+        "Condition": "PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_SeaHareUnlocked",
+        "Chance": 1.0,
+        "IgnoreFishDataRequirements": false,
+        "CanBeInherited": false,
+        "Id": "Xinzh.KeniOctopus_SeaHareKonig_Ocean",
+        "ItemId": "(O)Xinzh.KeniOctopus_SeaHareKonig"
+      },
+      {
+        "Condition": "PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_SeaHareUnlocked",
+        "Chance": 1.0,
+        "IgnoreFishDataRequirements": false,
+        "CanBeInherited": false,
+        "Id": "Xinzh.KeniOctopus_SeaHareGhost_Ocean",
+        "ItemId": "(O)Xinzh.KeniOctopus_SeaHareGhost"
+      },
+      {
+        "Condition": "PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_SeaHareUnlocked",
+        "Chance": 1.0,
+        "IgnoreFishDataRequirements": false,
+        "CanBeInherited": false,
+        "Id": "Xinzh.KeniOctopus_SeaHareSoap_Ocean",
+        "ItemId": "(O)Xinzh.KeniOctopus_SeaHareSoap"
+      }
+    ],
+    "IslandSouthEastCave": [
+      {
+        "IgnoreFishDataRequirements": false,
+        "Id": "Xinzh.KeniOctopus_Spawn",
+        "ItemId": "(O)Xinzh.KeniOctopus_Fish",
+        "Condition": "SEASON spring summer fall",
+        "Chance": 1.0,
+        "CanBeInherited": false
+      }
+    ]
+  },
+  "FishPonds": [
+    {
+      "Id": "Xinzh.KeniOctopus_Pond",
+      "RequiredTags": [
+        "xinzh_keni_octopus"
+      ],
+      "Precedence": -100,
+      "MaxPopulation": 1,
+      "SpawnTime": 5,
+      "PopulationGates": {},
+      "BaseMinProduceChance": 0.5,
+      "BaseMaxProduceChance": 0.5,
+      "WaterColor": [
+        {
+          "Id": "DarkRed",
+          "MinPopulation": 1,
+          "Color": "DarkRed"
+        }
+      ],
+      "ProducedItems": [
+        {
+          "Id": "Roe",
+          "ItemId": "(O)812",
+          "RequiredPopulation": 1,
+          "Chance": 0.5,
+          "Precedence": 0,
+          "MinStack": 1,
+          "MaxStack": 1
+        },
+        {
+          "Id": "TreasureChest",
+          "ItemId": "(O)166",
+          "RequiredPopulation": 1,
+          "Chance": 1.0,
+          "Precedence": 1,
+          "MinStack": 1,
+          "MaxStack": 1
+        }
+      ]
+    }
+  ],
+  "Mail": {
+    "Xinzh.KeniOctopus_WillyLetter": "{{i18n:mail.willy.intro.body}}%item quest Xinzh.KeniOctopus_Mystery true %%%action AddMail Current Xinzh.KeniOctopus_InvestigationActive received %%[#]{{i18n:mail.willy.intro.title}}",
+    "Xinzh.KeniOctopus_WillyReward": "{{i18n:mail.willy.reward.body}}%item money 5000 %%[#]{{i18n:mail.willy.reward.title}}",
+    "Xinzh.KeniOctopus_SeaHareReturn": "{{i18n:mail.demetrius.return.body}}%item id (O)Xinzh.KeniOctopus_SeaHareKe 1 %%%item id (O)Xinzh.KeniOctopus_SeaHareNi 1 %%%item id (O)Xinzh.KeniOctopus_SeaHareKeegan 1 %%%item id (O)Xinzh.KeniOctopus_SeaHareKonig 1 %%%item id (O)Xinzh.KeniOctopus_SeaHareGhost 1 %%%item id (O)Xinzh.KeniOctopus_SeaHareSoap 1 %%%item id (F)2304 1 %%[#]{{i18n:mail.demetrius.return.title}}",
+    "Xinzh.KeniOctopus_SeaHareIntro": "{{i18n:mail.demetrius.intro.body}}%item quest Xinzh.KeniOctopus_SeaHareResearch true %%[#]{{i18n:mail.demetrius.intro.title}}"
+  },
+  "Quests": {
+    "Xinzh.KeniOctopus_ShowWilly": "Basic/{{i18n:quest.mystery.title}}/{{i18n:quest.inspection.description}}/{{i18n:quest.inspection.objective}}/null/-1/0/-1/false",
+    "Xinzh.KeniOctopus_Mystery": "Basic/{{i18n:quest.mystery.title}}/{{i18n:quest.mystery.description}}/{{i18n:quest.mystery.objective}}/null/-1/0/-1/false",
+    "Xinzh.KeniOctopus_SeaHareResearch": "Basic/{{i18n:order.seahares.title}}/{{i18n:quest.seahares.description}}/{{i18n:quest.seahares.objective}}/null/-1/5000/-1/false"
+  },
+  "TriggerActions": [
+    {
+      "Condition": "PLAYER_BASE_FISHING_LEVEL Current 2, !PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_WillyLetter",
+      "Trigger": "DayEnding",
+      "Id": "Xinzh.KeniOctopus_SendWillyLetter",
+      "HostOnly": false,
+      "Actions": [
+        "AddMail Current Xinzh.KeniOctopus_WillyLetter tomorrow"
+      ]
+    },
+    {
+      "Actions": [
+        "AddMail Current Xinzh.KeniOctopus_WillyReward tomorrow"
+      ],
+      "HostOnly": false,
+      "Id": "Xinzh.KeniOctopus_SendWillyReward",
+      "Condition": "PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_InvestigationDone, !PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_WillyReward",
+      "Trigger": "DayEnding"
+    }
+  ],
+  "Events": {
+    "FishShop": {
+      "Xinzh.KeniOctopus_WillyInspection/LocalMail Xinzh.KeniOctopus_InvestigationCaught/!LocalMail Xinzh.KeniOctopus_InvestigationDone/HasItem (O)Xinzh.KeniOctopus_Fish/NpcVisibleHere Willy": "continue/5 5/farmer 5 6 0 Willy 5 4 2/pause 300/speak Willy \"{{i18n:dialogue.willy.inspection.0}}\"/addObject 5 5 (O)Xinzh.KeniOctopus_Fish/pause 900/emote Willy 16/speak Willy \"{{i18n:dialogue.willy.inspection.1}}\"/removeSprite 5 5/removeQuest Xinzh.KeniOctopus_ShowWilly/action AddMail Current Xinzh.KeniOctopus_InvestigationDone received/playSound questcomplete/end"
+    }
+  }
+}
