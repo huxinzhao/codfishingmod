@@ -1,4 +1,6 @@
+param([string]$GameDir = $env:STARDEW_GAME_PATH)
 $ErrorActionPreference='Stop'
+$gameDir = & "$PSScriptRoot/game-path.ps1" -GameDir $GameDir
 $source=(Get-Content -LiteralPath "$PSScriptRoot/ContentAssets.cs" -Raw).Replace('namespace KeniOctopus.QuestRuntime;', 'namespace KeniOctopus.QuestRuntime {') + "`n}"
 $stubs=@'
 namespace Microsoft.Xna.Framework.Graphics {public class Texture2D {}}
@@ -23,8 +25,8 @@ namespace StardewModdingAPI.Events {
  public class AssetRequestedEventArgs:System.EventArgs {public StardewModdingAPI.AssetName NameWithoutLocale=new(); public StardewModdingAPI.Asset Target;public string LoadedPath;public void Edit(System.Action<StardewModdingAPI.IAssetData> edit)=>edit(Target);public void LoadFromModFile<T>(string path,StardewModdingAPI.AssetLoadPriority priority){LoadedPath=path;}}
 }
 '@
-$refs=@(Get-ChildItem -LiteralPath "$PSHOME/ref" -Filter '*.dll' | ForEach-Object FullName)+@('D:/steam/steamapps/common/Stardew Valley/StardewValley.GameData.dll',[Newtonsoft.Json.JsonConvert].Assembly.Location)
-Add-Type -Path 'D:/steam/steamapps/common/Stardew Valley/StardewValley.GameData.dll'
+$refs=@(Get-ChildItem -LiteralPath "$PSHOME/ref" -Filter '*.dll' | ForEach-Object FullName)+@("$gameDir/StardewValley.GameData.dll",[Newtonsoft.Json.JsonConvert].Assembly.Location)
+Add-Type -Path "$gameDir/StardewValley.GameData.dll"
 Add-Type -TypeDefinition ($source+$stubs) -ReferencedAssemblies $refs -IgnoreWarnings -WarningAction SilentlyContinue
 $type=[StardewValley.Game1].Assembly.GetType('KeniOctopus.QuestRuntime.ContentAssets')
 $helper=[StardewModdingAPI.Helper]::new();$helper.Data.Root=Join-Path $PSScriptRoot '../outputs/cod fishing mod'

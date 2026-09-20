@@ -1,5 +1,6 @@
+param([string]$GameDir = $env:STARDEW_GAME_PATH)
 $ErrorActionPreference = 'Stop'
-$gameDir = 'D:/steam/steamapps/common/Stardew Valley'
+$gameDir = & "$PSScriptRoot/game-path.ps1" -GameDir $GameDir
 Add-Type -Path "$PSHOME/Microsoft.CodeAnalysis.dll"
 Add-Type -Path "$PSHOME/Microsoft.CodeAnalysis.CSharp.dll"
 $referencePaths = @(
