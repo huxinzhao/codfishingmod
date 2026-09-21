@@ -56,20 +56,15 @@ Check (-not $p.hasQuest('Xinzh.KeniOctopus_SeaHareResearch')) 'Quest started bef
 $p.mailReceived.Add('Xinzh.KeniOctopus_SeaHareIntro')|Out-Null; Call StartDay
 $q=$p.questLog[0]
 $npc=[StardewValley.NPC]::new();$npc.Name='Demetrius'
-function Catch($suffix,$probe=$false,$count=1){Call OnCatch @($q,"(O)Xinzh.KeniOctopus_SeaHare$suffix",$count,$probe)}
 function Deliver($suffix,$probe=$false){$p.ActiveObject=[StardewValley.Item]::new();$p.ActiveObject.QualifiedItemId="(O)Xinzh.KeniOctopus_SeaHare$suffix"; Call OnDeliver @($npc,$p,$probe,$false)|Out-Null}
-Catch Ke $true; Catch Ke $false 0
-Check (-not $p.mailReceived.Contains('Xinzh.KeniOctopus_SeaHare_Caught_Ke')) 'Probe or zero catch counted'
-Deliver Ke
-Check ($p.Consumed -eq 0) 'Uncaught sample consumed'
-Catch Ke; Deliver Ke $true
+Deliver Ke $true
 Check ($p.Consumed -eq 0) 'Probe consumed item'
 Deliver Ke; Deliver Ke
-Check ($p.Consumed -eq 1) 'Duplicate sample consumed'
-foreach($s in @('Ni','Keegan','Konig','Ghost','Soap')){Catch $s;Deliver $s}
+Check ($p.Consumed -eq 1) 'Direct delivery failed or duplicate sample consumed'
+foreach($s in @('Ni','Keegan','Konig','Ghost','Soap')){Deliver $s}
 Check ($p.Consumed -eq 6 -and $q.completed.Value -and $q.moneyReward.Value -eq 5000) 'Wrong completion or reward'
 Call Schedule;Call StartDay;Deliver Ke
 Check ($q.Completions -eq 1 -and @($p.mailForTomorrow|Where-Object {$_ -eq 'Xinzh.KeniOctopus_SeaHareReturn'}).Count -eq 1) 'Duplicate completion or mail'
-'PASS: survey level/date gates, letter acceptance, catches, probes, six deliveries and reward deduplication (isolated stubs).'
+'PASS: survey level/date gates, letter acceptance, delivery probes, six deliveries without catching and reward deduplication (isolated stubs).'
 
 

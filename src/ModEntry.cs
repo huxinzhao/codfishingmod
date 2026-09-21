@@ -16,18 +16,44 @@ public sealed class ModEntry : Mod
     private const string CaughtFlag = "Xinzh.KeniOctopus_InvestigationCaught";
     private const string DoneFlag = "Xinzh.KeniOctopus_InvestigationDone";
     private static readonly HashSet<int> PendingScreens = new();
+    private static ModEntry Instance;
 
     public override void Entry(IModHelper helper)
     {
+        Instance = this;
         ContentAssets.Initialize(helper);
         new Harmony(ModManifest.UniqueID).Patch(
             AccessTools.Method(typeof(Quest), nameof(Quest.OnFishCaught),
                 new[] { typeof(string), typeof(int), typeof(int), typeof(bool) }),
             postfix: new HarmonyMethod(typeof(ModEntry), nameof(AfterFishCaught)));
+        new Harmony(ModManifest.UniqueID).Patch(
+            AccessTools.Method(typeof(NPC), nameof(NPC.tryToReceiveActiveObject),
+                new[] { typeof(Farmer), typeof(bool) }),
+            prefix: new HarmonyMethod(typeof(ModEntry), nameof(OnOfferToWilly)));
         helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
         helper.Events.GameLoop.ReturnedToTitle += (_, _) => PendingScreens.Clear();
         helper.Events.GameLoop.GameLaunched += OnGameLaunched;
         SurveyRuntime.Initialize(helper, ModManifest.UniqueID);
+    }
+
+    // Treat offering this quest fish as an inspection, only while the inspection quest is active.
+    // A probe reports acceptance without consuming items or changing quest state.
+    private static bool OnOfferToWilly(NPC __instance, Farmer __0, bool __1, ref bool __result)
+    {
+        if (!Context.IsWorldReady || __instance.Name != "Willy" || __0 != Game1.player
+            || __0.ActiveObject?.QualifiedItemId != FishId
+            || !__0.mailReceived.Contains(CaughtFlag)
+            || !__0.hasQuest(SecondQuest) || __0.mailReceived.Contains(DoneFlag))
+            return true;
+
+        __result = true;
+        if (__1) return false;
+
+        __0.removeQuest(SecondQuest);
+        __0.mailReceived.Add(DoneFlag);
+        Game1.playSound("questcomplete");
+        Game1.DrawDialogue(new Dialogue(__instance, null, Instance.Helper.Translation.Get("dialogue.willy.inspection.1")));
+        return false;
     }
 
     private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
@@ -95,3 +121,5 @@ public sealed class ModEntry : Mod
             player.mailReceived.Add(CaughtFlag);
     }
 }
+
+

@@ -21,9 +21,6 @@ internal static class SurveyRuntime
     {
         Helper = helper;
         var harmony = new Harmony(harmonyId);
-        harmony.Patch(AccessTools.Method(typeof(Quest), nameof(Quest.OnFishCaught),
-            new[] { typeof(string), typeof(int), typeof(int), typeof(bool) }),
-            postfix: new HarmonyMethod(typeof(SurveyRuntime), nameof(OnCatch)));
         harmony.Patch(AccessTools.Method(typeof(NPC), nameof(NPC.tryToReceiveActiveObject),
             new[] { typeof(Farmer), typeof(bool) }),
             prefix: new HarmonyMethod(typeof(SurveyRuntime), nameof(OnDeliver)));
@@ -70,13 +67,6 @@ internal static class SurveyRuntime
         if (active != null && IsFinished(p)) Complete(p, active);
     }
 
-    private static void OnCatch(Quest __instance, string fishId, int numberCaught, bool probe)
-    {
-        if (!Context.IsWorldReady || probe || numberCaught < 1 || __instance.id.Value != QuestId || __instance.completed.Value) return;
-        string species = GetSpecies(fishId);
-        if (species != null) Game1.player.mailReceived.Add(Flag("Caught", species));
-    }
-
     private static bool OnDeliver(NPC __instance, Farmer __0, bool __1, ref bool __result)
     {
         if (!Context.IsWorldReady || __instance.Name != "Demetrius" || __0 != Game1.player || __1) return true;
@@ -87,8 +77,6 @@ internal static class SurveyRuntime
         string message;
         if (__0.mailReceived.Contains(Flag("Delivered", species)))
             message = Helper.Translation.Get("survey.already-delivered");
-        else if (!__0.mailReceived.Contains(Flag("Caught", species)))
-            message = Helper.Translation.Get("survey.catch-first");
         else
         {
             __0.reduceActiveItemByOne();
@@ -104,7 +92,7 @@ internal static class SurveyRuntime
         return false;
     }
 
-    private static bool IsFinished(Farmer p) => Species.All(s => p.mailReceived.Contains(Flag("Caught", s)) && p.mailReceived.Contains(Flag("Delivered", s)));
+    private static bool IsFinished(Farmer p) => Species.All(s => p.mailReceived.Contains(Flag("Delivered", s)));
 
     private static void Complete(Farmer p, Quest quest)
     {
@@ -120,7 +108,6 @@ internal static class SurveyRuntime
         __result = string.Join("\n", Species.Select(s => Helper.Translation.Get("survey.progress", new
         {
             fish = Helper.Translation.Get("fish.seahare." + s.ToLowerInvariant() + ".name").ToString(),
-            caught = Game1.player.mailReceived.Contains(Flag("Caught", s)) ? 1 : 0,
             delivered = Game1.player.mailReceived.Contains(Flag("Delivered", s)) ? 1 : 0
         }).ToString()));
     }

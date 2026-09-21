@@ -61,7 +61,8 @@ $null=Load 'Data/Locations' $locations;$null=Load 'Data/Locations' $locations
 Check ($locations['Beach'].Fish.Count -eq 7 -and $locations['IslandSouthEastCave'].Fish.Count -eq 1) 'Fish locations duplicated or lost'
 foreach($name in @('Fish','mail','Quests')){$dict=[System.Collections.Generic.Dictionary[string,string]]::new();$null=Load "Data/$name" $dict;Check ($dict.Count -gt 0) "Missing $name";Check (-not (@($dict.Values)-match '\{\{i18n:')) "Unresolved text in $name"}
 $ponds=[System.Collections.Generic.List[StardewValley.GameData.FishPonds.FishPondData]]::new();$null=Load 'Data/FishPondData' $ponds
-Check ($ponds.Count -eq 1 -and $ponds[0].MaxPopulation -eq 1) 'Fish pond data changed'
+$null=Load 'Data/FishPondData' $ponds
+Check ($ponds.Count -eq 7 -and ($ponds | Where-Object Id -eq 'Xinzh.KeniOctopus_Pond').MaxPopulation -eq 1) 'Fish pond data duplicated or octopus capacity changed'
 $triggers=[System.Collections.Generic.List[StardewValley.GameData.TriggerActionData]]::new();$null=Load 'Data/TriggerActions' $triggers
 Check ($triggers.Count -eq 2) 'Willy letter triggers missing'
 foreach($id in @('Fish','SeaHareKe','SeaHareNi','SeaHareKeegan','SeaHareKonig','SeaHareGhost','SeaHareSoap')){$e=Load "Mods/Xinzh.KeniOctopus/$id" $null;Check (Test-Path -LiteralPath (Join-Path $helper.Data.Root $e.LoadedPath)) "Sprite missing $id"}
@@ -71,3 +72,42 @@ Check ($b -gt 1800 -and $b -lt 2200) 'Unexpected daily variant distribution'
 'PASS: all native asset edits, localized event/mail/quest text, idempotent spawns, sprites and daily variant weighting.'
 
 
+
+$giftData=Get-Content (Join-Path $helper.Data.Root 'data.json') -Raw|ConvertFrom-Json -AsHashtable
+$gifts=[System.Collections.Generic.Dictionary[string,string]]::new()
+foreach($npc in $giftData.GiftLikes.Keys){$gifts[$npc]='love/72/like/24/dislike/-4/hate/80/neutral/388/'}
+$gifts['Lewis']='original';$gifts['Universal_Dislike']='-4'
+$gifts['MissingFields']='untouched'
+$null=Load 'Data/NPCGiftTastes' $gifts
+$firstPass=@{};foreach($npc in $gifts.Keys){$firstPass[$npc]=$gifts[$npc]}
+$null=Load 'Data/NPCGiftTastes' $gifts
+foreach($npc in $giftData.GiftLikes.Keys){
+ $fields=$gifts[$npc].Split('/')
+ Check ($fields[0] -eq 'love' -and $fields[2] -eq 'like' -and $fields[5] -eq '-4') 'Existing dialogue or category tastes changed'
+ foreach($id in $giftData.GiftLikes[$npc]){Check ($fields[3].Split(' ') -contains $id) "Missing like: $npc $id"}
+ Check ($firstPass[$npc] -eq $gifts[$npc]) 'Repeated asset edit duplicated likes'
+ $dialogue=[System.Collections.Generic.Dictionary[string,string]]::new();$dialogue['other']='preserved'
+ $null=Load "Characters/Dialogue/$npc" $dialogue
+ Check ($dialogue['other'] -eq 'preserved') 'Unrelated dialogue lost'
+ foreach($key in $giftData.GiftDialogue[$npc].Keys){Check ($dialogue[$key] -match '[\p{IsCJKUnifiedIdeographs}]' -and $dialogue[$key] -notmatch '\{\{') 'Gift dialogue not localized'}
+}
+Check ($gifts['Lewis'] -eq 'original' -and $gifts['Universal_Dislike'] -eq '-4') 'Unrelated NPC/universal tastes changed'
+Check ($giftData.GiftLikes.Count -eq 16 -and @($giftData.GiftLikes.Values | Where-Object Count -eq 6).Count -eq 10) 'Unexpected target group'
+$helper.Translation.Text=[Newtonsoft.Json.JsonConvert]::DeserializeObject((Get-Content -LiteralPath (Join-Path $helper.Data.Root 'i18n/default.json') -Raw),[System.Collections.Generic.Dictionary[string,string]])
+$helper.Events.Content.ChangeLocale()
+Check ($helper.GameContent.Invalidated.Contains('Characters/Dialogue/Harvey')) 'Gift dialogue cache not invalidated'
+$dialogue=[System.Collections.Generic.Dictionary[string,string]]::new();$null=Load 'Characters/Dialogue/Harvey' $dialogue
+Check ($dialogue['AcceptGift_xinzh_seahare_ni'].Contains('coffee')) 'English gift dialogue missing'
+'PASS: 16 NPC gift preferences, idempotent edits, retained vanilla tastes/dialogue, Chinese and English gift responses.'
+
+$fields=$gifts['Willy'].Split('/')
+Check ($fields[1].Split(' ') -contains 'Xinzh.KeniOctopus_Fish') 'Willy does not love Koni'
+Check ($fields[3].Split(' ') -notcontains 'Xinzh.KeniOctopus_Fish') 'Koni incorrectly listed as liked'
+
+# Lookup Anything only records conditioned spawn locations when a season rule is present.
+$seaHareSpawns=@($locations['Beach'].Fish | Where-Object ItemId -Like '*SeaHare*')
+Check ($seaHareSpawns.Count -eq 6) 'Missing sea hare spawns'
+foreach($spawn in $seaHareSpawns){
+ Check ($spawn.Condition -eq 'SEASON spring summer fall winter, PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_SeaHareUnlocked') 'Lookup season metadata or unlock gate lost'
+ Check (-not $spawn.IgnoreFishDataRequirements) 'Time/weather requirements bypassed'
+}

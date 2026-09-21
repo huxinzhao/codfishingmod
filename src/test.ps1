@@ -5,7 +5,7 @@ $stubs=@'
 namespace KeniOctopus.QuestRuntime { internal static class SurveyRuntime { internal static void Initialize(StardewModdingAPI.IModHelper h,string id){} } }
 namespace KeniOctopus.QuestRuntime { internal static class ContentAssets { internal static void Initialize(StardewModdingAPI.IModHelper h){} } }
 namespace HarmonyLib {
- public class Harmony { public Harmony(string id){} public void Patch(object m, HarmonyMethod postfix){} }
+ public class Harmony { public Harmony(string id){} public void Patch(object m, HarmonyMethod postfix=null, HarmonyMethod prefix=null){} }
  public class HarmonyMethod { public HarmonyMethod(System.Type t,string n){} }
  public static class AccessTools { public static System.Reflection.MethodInfo Method(System.Type t,string n,System.Type[] a)=>null; public static System.Type TypeByName(string name)=>null; }
 }
@@ -26,11 +26,11 @@ namespace StardewModdingAPI.Events {
 }
 namespace StardewValley {
  public class Item { public string QualifiedItemId {get;set;} } public class Field<T> { public T Value; public Field(T v){Value=v;} }
- public static class Game1 { public static Farmer player=new(); }
+ public class NPC { public string Name; public bool tryToReceiveActiveObject(Farmer p,bool probe)=>true; } public class Dialogue { public string Text; public Dialogue(NPC npc,string key,string text){Text=text;} } public static class Game1 { public static Farmer player=new(); public static int Sounds; public static string LastDialogue; public static void playSound(string s){Sounds++;} public static void DrawDialogue(Dialogue d){LastDialogue=d.Text;} }
  public class Farmer {
   public System.Collections.Generic.HashSet<string> mailReceived=new();
   public System.Collections.Generic.HashSet<string> Quests=new();
-  public bool RejectAdd;
+  public bool RejectAdd; public Item ActiveObject;
   public bool hasQuest(string id)=>Quests.Contains(id);
   public void addQuest(string id){if(!RejectAdd)Quests.Add(id);}
   public void removeQuest(string id)=>Quests.Remove(id);
@@ -95,4 +95,38 @@ foreach($id in @('(O)128','(O)Xinzh.KeniOctopus_SeaHareNi','(O)812')) {
 }
 'PASS: 8 lookup heading scope checks.'
 
+
+$offer=$t.GetMethod('OnOfferToWilly',[Reflection.BindingFlags]'NonPublic,Static')
+$t.GetField('Instance',[Reflection.BindingFlags]'NonPublic,Static').SetValue($null,$mod)
+$p.RejectAdd=$false; $p.Quests.Clear(); $p.mailReceived.Clear()
+$p.Quests.Add($second)|Out-Null
+$p.mailReceived.Add('Xinzh.KeniOctopus_InvestigationCaught')|Out-Null
+$held=[StardewValley.Item]::new();$held.QualifiedItemId=$fish;$p.ActiveObject=$held
+$willy=[StardewValley.NPC]::new();$willy.Name='Willy'
+$argsForOffer=[object[]]@($willy,$p,$true,$false)
+$runOriginal=$offer.Invoke($null,$argsForOffer)
+Assert (!$runOriginal -and $argsForOffer[3]) 'Probe did not report inspection acceptance'
+Assert ($p.hasQuest($second) -and !$p.mailReceived.Contains('Xinzh.KeniOctopus_InvestigationDone') -and [StardewValley.Game1]::Sounds -eq 0) 'Probe changed quest state'
+$argsForOffer=[object[]]@($willy,$p,$false,$false)
+$runOriginal=$offer.Invoke($null,$argsForOffer)
+Assert (!$runOriginal -and $argsForOffer[3] -and [object]::ReferenceEquals($held,$p.ActiveObject)) 'Manual inspection became a gift or consumed fish'
+Assert (!$p.hasQuest($second) -and $p.mailReceived.Contains('Xinzh.KeniOctopus_InvestigationDone')) 'Manual inspection did not finish shared quest state'
+Assert ([StardewValley.Game1]::LastDialogue -eq 'dialogue.willy.inspection.1') 'Missing completion dialogue'
+$runOriginal=$offer.Invoke($null,$argsForOffer)
+Assert ($runOriginal -and [StardewValley.Game1]::Sounds -eq 1 -and [object]::ReferenceEquals($held,$p.ActiveObject)) 'Repeated inspection consumed fish or completed twice'
+# The shop event writes the same Done flag, so its completion must also allow normal gifting.
+$p.Quests.Clear(); $p.mailReceived.Clear(); $p.mailReceived.Add('Xinzh.KeniOctopus_InvestigationCaught')|Out-Null; $p.mailReceived.Add('Xinzh.KeniOctopus_InvestigationDone')|Out-Null
+Assert ($offer.Invoke($null,$argsForOffer)) 'Shop completion blocked normal gifting'
+$willy.Name='Demetrius'; Assert ($offer.Invoke($null,$argsForOffer)) 'Intercepted another NPC'; $willy.Name='Willy'
+$held.QualifiedItemId='(O)128'; Assert ($offer.Invoke($null,$argsForOffer)) 'Intercepted another fish'; $held.QualifiedItemId=$fish
+$p.mailReceived.Clear(); Assert ($offer.Invoke($null,$argsForOffer)) 'Intercepted fish before quest capture'
+$p.mailReceived.Add('Xinzh.KeniOctopus_InvestigationCaught')|Out-Null; $p.Quests.Add($second)|Out-Null
+$argsForOffer[1]=[StardewValley.Farmer]::new(); Assert ($offer.Invoke($null,$argsForOffer)) 'Intercepted another player'
+$data=Get-Content "$PSScriptRoot/../outputs/cod fishing mod/data.json" -Raw|ConvertFrom-Json -AsHashtable
+$eventKey=@($data.Events.FishShop.Keys)[0]
+Assert ($eventKey.Contains('!LocalMail Xinzh.KeniOctopus_InvestigationDone') -and $eventKey.Contains('HasItem (O)Xinzh.KeniOctopus_Fish')) 'Shop event does not share completion/possession checks'
+Assert ($data.Events.FishShop[$eventKey].Contains('AddMail Current Xinzh.KeniOctopus_InvestigationDone received')) 'Shop event no longer completes shared flag'
+$reward=@($data.TriggerActions|Where-Object Id -eq 'Xinzh.KeniOctopus_SendWillyReward')[0]
+Assert ($reward.Trigger -eq 'DayEnding' -and $reward.Condition.Contains('!PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_WillyReward') -and $reward.Actions[0].EndsWith(' tomorrow')) 'Reward lost its next-day/deduplication gate'
+'PASS: manual inspection, probes, retained fish, repeat offers, NPC/player scope and shared shop/reward gates.'
 

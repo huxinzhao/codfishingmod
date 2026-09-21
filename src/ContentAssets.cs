@@ -44,6 +44,8 @@ internal static class ContentAssets
         // These assets contain resolved translations and may have been cached on the title screen.
         foreach (string asset in new[] { "Data/Objects", "Data/mail", "Data/Quests" })
             Helper.GameContent.InvalidateCache(asset);
+        foreach (var npc in ((JObject)Data["GiftDialogue"]).Properties())
+            Helper.GameContent.InvalidateCache("Characters/Dialogue/" + npc.Name);
         foreach (var location in ((JObject)Data["Events"]).Properties())
             Helper.GameContent.InvalidateCache("Data/Events/" + location.Name);
     }
@@ -95,6 +97,27 @@ internal static class ContentAssets
         }
         switch (name)
         {
+            case "Data/NPCGiftTastes":
+                e.Edit(a =>
+                {
+                    var target = a.AsDictionary<string, string>().Data;
+                    foreach (string section in new[] { "GiftLikes", "GiftLoves" })
+                    foreach (var entry in Read<Dictionary<string, string[]>>(section))
+                    {
+                        if (!target.TryGetValue(entry.Key, out string original)) continue;
+                        string[] fields = original.Split('/');
+                        if (fields.Length < 10) continue;
+                        var ids = new HashSet<string>(entry.Value);
+                        foreach (int index in new[] { 1, 3, 5, 7, 9 })
+                        {
+                            var retained = fields[index].Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                                .Where(id => !ids.Contains(id.StartsWith("(O)") ? id.Substring(3) : id));
+                            fields[index] = string.Join(" ", index == (section == "GiftLoves" ? 1 : 3) ? retained.Concat(entry.Value) : retained);
+                        }
+                        target[entry.Key] = string.Join("/", fields);
+                    }
+                });
+                break;
             case "Data/Objects": e.Edit(a => EditDictionary<ObjectData>(a, "Objects")); break;
             case "Data/Fish": e.Edit(a => EditDictionary<string>(a, "Fish")); break;
             case "Data/mail": e.Edit(a => EditDictionary<string>(a, "Mail")); break;
@@ -138,10 +161,15 @@ internal static class ContentAssets
                 });
                 break;
             default:
+                const string dialoguePrefix = "Characters/Dialogue/";
+                if (name.StartsWith(dialoguePrefix, StringComparison.OrdinalIgnoreCase)
+                    && Data["GiftDialogue"][name.Substring(dialoguePrefix.Length)] != null)
+                    e.Edit(a => EditDictionary<string>(a, "GiftDialogue/" + name.Substring(dialoguePrefix.Length)));
                 if (name.StartsWith("Data/Events/", StringComparison.OrdinalIgnoreCase) && Data["Events"][name.Substring(12)] != null)
                     e.Edit(a => EditDictionary<string>(a, "Events/" + name.Substring(12)));
                 break;
         }
     }
 }
+
 
