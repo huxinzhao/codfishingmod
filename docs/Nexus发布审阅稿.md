@@ -1,20 +1,27 @@
-cod fishing mod
-Author: Florain
-Version: 1.6.1
+# Nexus 发布审阅稿 · 1.6.1
 
-页面标题（英文）
+这是详情页的修改入口。直接编辑各标题下的文字并保存，再告诉我“已修改发布审阅稿”，我会据此更新待发布文案；不会改动游戏内文本或自动发布。
+
+英文和中文均可修改；如果只修改中文，我会据此调整英文。下方“详情页”不包含具体钓取条件、奖励数值或剧情答案。安装要求需与当前安装包保持一致。
+
+## 页面标题（英文）
+
 More COD-Inspired Fish
 
-页面标题（中文参考）
+## 页面标题（中文参考）
+
 更多鱼类-COD版
 
-简短介绍（英文）
+## 简短介绍（英文）
+
 Bring a little COD-inspired charm to the ocean. Meet unusual sea creatures, follow new fishing quests, and give your catches a home in colorful fish ponds or aquariums. English and Simplified Chinese supported.
 
-简短介绍（中文）
+## 简短介绍（中文）
+
 当 COD 的熟悉面孔变成海洋里的新住客，会发生什么？带上鱼竿，认识软乎乎的海兔与奇怪的章鱼，发现新的钓鱼故事，为鱼塘和鱼缸增添一点个性。支持简体中文与英文。
 
-详情页（英文）
+## 详情页（英文）
+
 MORE COD-INSPIRED FISH
 
 There are some unfamiliar faces beneath the waves.
@@ -52,7 +59,8 @@ Source: https://github.com/huxinzhao/codfishingmod
 SMAPI: https://smapi.io/
 Content Patcher: https://www.nexusmods.com/stardewvalley/mods/1915
 
-详情页（中文）
+## 详情页（中文）
+
 更多鱼类-COD版
 
 海面之下，好像多了几张熟悉又陌生的面孔。
@@ -93,7 +101,8 @@ SMAPI 可以提示 Nexus 上的新版本，但更新需要自行下载和安装�
 SMAPI：https://smapi.io/
 Content Patcher：https://www.nexusmods.com/stardewvalley/mods/1915
 
-更新日志（英文）
+## 更新日志（英文）
+
 1.6.1 — Aquarium support and Content Patcher update
 
 • Fixed the mod's fish being unable to enter aquariums. Aquarium displays use their existing sprites.
@@ -103,7 +112,8 @@ Content Patcher：https://www.nexusmods.com/stardewvalley/mods/1915
 
 Content Patcher 2.9.0+ is now required. When updating from 1.5.x or earlier, remove the old mod folder before installing; do not merge folders.
 
-更新日志（中文）
+## 更新日志（中文）
+
 1.6.1 — 鱼缸支持与 Content Patcher 更新
 
 • 修复模组鱼类无法放入鱼缸的问题，鱼缸中沿用对应鱼类的原有贴图。
@@ -113,13 +123,14 @@ Content Patcher 2.9.0+ is now required. When updating from 1.5.x or earlier, rem
 
 现在需要 Content Patcher 2.9.0+。从 1.5.x 或更早版本更新时，先移除旧模组文件夹，再安装新版，不要覆盖合并。
 
-下载文件名称
+## 下载文件名称
+
 cod fishing mod 1.6.1
 
-下载文件说明（英文）
+## 下载文件说明（英文）
+
 Full installation for English and Simplified Chinese. Requires Stardew Valley 1.6.15+, SMAPI 4.5.1+ and Content Patcher 2.9.0+. Remove the previous mod folder before installing. Keep Content and Runtime together.
 
-下载文件说明（中文）
+## 下载文件说明（中文）
+
 完整安装包，含简体中文与英文。需要 Stardew Valley 1.6.15+、SMAPI 4.5.1+、Content Patcher 2.9.0+。安装前移除旧模组文件夹，保留包内 Content 与 Runtime 两个子文件夹。
-
-

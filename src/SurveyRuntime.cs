@@ -69,11 +69,12 @@ internal static class SurveyRuntime
 
     private static bool OnDeliver(NPC __instance, Farmer __0, bool __1, ref bool __result)
     {
-        if (!Context.IsWorldReady || __instance.Name != "Demetrius" || __0 != Game1.player || __1) return true;
+        if (!Context.IsWorldReady || __instance.Name != "Demetrius" || __0 != Game1.player) return true;
         Quest quest = Active(__0);
         string species = GetSpecies(__0.ActiveObject?.QualifiedItemId);
         if (quest == null || species == null) return true;
         __result = true;
+        if (__1) return false;
         string message;
         if (__0.mailReceived.Contains(Flag("Delivered", species)))
             message = Helper.Translation.Get("survey.already-delivered");
@@ -113,4 +114,5 @@ internal static class SurveyRuntime
     }
 
 }
+
 

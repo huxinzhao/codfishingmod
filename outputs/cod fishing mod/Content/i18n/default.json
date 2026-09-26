@@ -32,7 +32,7 @@
   "quest.seahares.objective": "Deliver one of each of the six kinds of sea hare to Demetrius.",
   "quest.seahares.description": "Demetrius would like your help investigating the curious creatures that have recently appeared in the ocean.",
   "mail.demetrius.intro.title": "Aquatic Research with Demetrius",
-  "mail.demetrius.intro.body": "Hey, @:^^I hear you have become quite an accomplished angler. I am conducting a marine survey and would appreciate your help collecting a few specimens, if you have the time. Some curious creatures have recently appeared in these waters, unlike anything seen here before. Their active hours and preferred weather vary, so if you have some time, try visiting the coast under different conditions.^^—Demetrius",
+  "mail.demetrius.intro.body": "Hey, @:^^I am conducting a marine survey and would appreciate your help collecting a few specimens, if you have the time. Some curious creatures have recently appeared in these waters, unlike anything seen here before. Their active hours and preferred weather vary, so if you have some time, try visiting the coast under different conditions.^^—Demetrius",
   "error.inspection-quest-unavailable": "Could not load the Willy inspection quest. The original quest was preserved.",
   "warning.lookup-compatibility-unavailable": "Could not enable Lookup Anything heading compatibility. Other mod features are unaffected.",
   "survey.already-delivered": "I already have a specimen of this kind. Try looking for the other varieties.",

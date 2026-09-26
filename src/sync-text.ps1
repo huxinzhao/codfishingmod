@@ -4,8 +4,8 @@ param(
     [string]$ModPath = "$PSScriptRoot/../outputs/cod fishing mod"
 )
 $ErrorActionPreference = 'Stop'
-$zhPath = Join-Path $ModPath 'i18n/zh.json'
-$enPath = Join-Path $ModPath 'i18n/default.json'
+$zhPath = Join-Path $ModPath 'Content/i18n/zh.json'
+$enPath = Join-Path $ModPath 'Content/i18n/default.json'
 $zh = Get-Content -LiteralPath $zhPath -Raw | ConvertFrom-Json -AsHashtable
 $en = Get-Content -LiteralPath $enPath -Raw | ConvertFrom-Json -AsHashtable
 if (@(Compare-Object @($zh.Keys) @($en.Keys)).Count) { throw 'Chinese and English translation keys differ.' }
@@ -34,7 +34,31 @@ if ($Mode -eq 'Import') {
     $zh | ConvertTo-Json -Depth 30 | Set-Content -LiteralPath $zhPath -Encoding utf8
     $en | ConvertTo-Json -Depth 30 | Set-Content -LiteralPath $enPath -Encoding utf8
 }
-$manifest = Get-Content -LiteralPath (Join-Path $ModPath 'manifest.json') -Raw | ConvertFrom-Json
+# The CP pack owns all translations; generate only the keys used by the small runtime.
+$runtimeKeys = @(
+    Get-ChildItem -LiteralPath $PSScriptRoot -Filter '*.cs' |
+    ForEach-Object { [regex]::Matches((Get-Content $_.FullName -Raw), 'Translation[.]Get[(]"([^"]+)"') } |
+    ForEach-Object { $_.Groups[1].Value } |
+    Where-Object { $_ -ne 'fish.seahare.' }
+) + @('Ke','Ni','Keegan','Konig','Ghost','Soap' | ForEach-Object { "fish.seahare.$($_.ToLowerInvariant()).name" })
+foreach ($locale in @('zh','default')) {
+    $target = if ($locale -eq 'zh') { $zh } else { $en }
+    $subset = [ordered]@{}
+    foreach ($key in ($runtimeKeys | Sort-Object -Unique)) {
+        if (!$target.Contains($key)) { throw "Runtime key missing: $key" }
+        $subset[$key] = $target[$key]
+    }
+    $runtimePath = Join-Path $ModPath "Runtime/i18n/$locale.json"
+    if ($Mode -eq 'Check') {
+        $actual = Get-Content $runtimePath -Raw | ConvertFrom-Json -AsHashtable
+        if ($actual.Count -ne $subset.Count) { throw 'Runtime translations out of sync.' }
+        foreach ($key in $subset.Keys) { if ($actual[$key] -cne $subset[$key]) { throw "Runtime translation differs: $key" } }
+    } else {
+        New-Item -ItemType Directory -Force (Split-Path $runtimePath) | Out-Null
+        $subset | ConvertTo-Json -Depth 30 | Set-Content $runtimePath -Encoding utf8
+    }
+}
+$manifest = Get-Content -LiteralPath (Join-Path $ModPath 'Runtime/manifest.json') -Raw | ConvertFrom-Json
 if ($Mode -eq 'Check' -and $review -notmatch ('版本：' + [regex]::Escape($manifest.Version) + '\s')) { throw 'Review version differs from manifest.' }
 if ($Mode -eq 'Export') {
     $lines = [System.Collections.Generic.List[string]]::new()
@@ -50,3 +74,5 @@ if ($Mode -eq 'Export') {
     [IO.File]::WriteAllLines([IO.Path]::GetFullPath($ReviewPath), $lines, [Text.UTF8Encoding]::new($false))
 }
 Write-Output "$Mode passed: $($zh.Count) bilingual entries."
+
+

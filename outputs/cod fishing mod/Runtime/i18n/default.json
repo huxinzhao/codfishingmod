@@ -1,0 +1,15 @@
+{
+  "dialogue.demetrius.complete": "This will be a great help to my research!#$b#What? You only started seeing these creatures in the ocean after accepting my request? Haha... Surely that is just a coincidence.",
+  "dialogue.demetrius.sample": "Thank you for this specimen. There are still other varieties to collect. Keep it up, @.",
+  "dialogue.willy.inspection.1": "Hmm... That is one strange-looking octopus. In all my years fishing these waters, I have never seen a big fellow like this!#$b#How interesting! I will tell the Anglers Association about it.#$b#You can keep this odd octopus. Take good care of it in a fish pond and you might get something extra out of it.$h",
+  "error.inspection-quest-unavailable": "Could not load the Willy inspection quest. The original quest was preserved.",
+  "fish.seahare.ghost.name": "Sea Hare Ghost",
+  "fish.seahare.ke.name": "Sea Hare Krueger",
+  "fish.seahare.keegan.name": "Sea Hare Keegan",
+  "fish.seahare.konig.name": "Sea Hare König",
+  "fish.seahare.ni.name": "Sea Hare Nikto",
+  "fish.seahare.soap.name": "Sea Hare Soap",
+  "survey.already-delivered": "I already have a specimen of this kind. Try looking for the other varieties.",
+  "survey.progress": "{{fish}}: delivered {{delivered}}/1",
+  "warning.lookup-compatibility-unavailable": "Could not enable Lookup Anything heading compatibility. Other mod features are unaffected."
+}

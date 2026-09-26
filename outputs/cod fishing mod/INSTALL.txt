@@ -5,7 +5,7 @@ New sea creatures and fishing stories for Stardew Valley.
 Requirements
 - Stardew Valley 1.6.15 or later
 - SMAPI 4.5.1 or later
-No other mods are required.
+- Content Patcher 2.9.0 or later
 
 Installation and updates
 1. Close the game and back up your save before updating.
@@ -13,7 +13,7 @@ Installation and updates
 3. Extract the entire "cod fishing mod" folder into the game's Mods folder.
 4. When updating from the old two-folder version, remove "[CP] KeniOctopus"
    and "KeniOctopus Quest Runtime" first. Do not keep duplicate versions.
-5. For the current single-folder version, replace the existing mod folder.
+5. When updating from 1.5.x or earlier, remove the entire old "cod fishing mod" folder before extracting the new version. Do not merge folders. Keep both Content and Runtime subfolders together inside the single installation folder.
 6. Start the game through SMAPI.
 
 Old special-order progress is no longer migrated automatically. Finish an
@@ -27,3 +27,4 @@ Tips
 - Watch your mailbox and quest journal for clues.
 - Try fishing at different times and in different weather.
 - Collect all attachments when reading a letter.
+

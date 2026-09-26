@@ -21,7 +21,6 @@ public sealed class ModEntry : Mod
     public override void Entry(IModHelper helper)
     {
         Instance = this;
-        ContentAssets.Initialize(helper);
         new Harmony(ModManifest.UniqueID).Patch(
             AccessTools.Method(typeof(Quest), nameof(Quest.OnFishCaught),
                 new[] { typeof(string), typeof(int), typeof(int), typeof(bool) }),
@@ -121,5 +120,6 @@ public sealed class ModEntry : Mod
             player.mailReceived.Add(CaughtFlag);
     }
 }
+
 
 

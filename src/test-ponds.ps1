@@ -8,7 +8,7 @@ try {
     $objects = $content.GetType().GetMethod('Load').MakeGenericMethod([System.Collections.Generic.Dictionary[string,StardewValley.GameData.Objects.ObjectData]]).Invoke($content, @('Data/Objects'))
     $native = $content.GetType().GetMethod('Load').MakeGenericMethod([System.Collections.Generic.List[StardewValley.GameData.FishPonds.FishPondData]]).Invoke($content, @('Data/FishPondData'))
 } finally { $content.Dispose() }
-$data = Get-Content -LiteralPath "$PSScriptRoot/../outputs/cod fishing mod/data.json" -Raw | ConvertFrom-Json -AsHashtable
+$data = & "$PSScriptRoot/read-content-data.ps1"
 function Check($ok, $message) { if (!$ok) { throw $message } }
 function Income($pond, $price, $population = 10) {
     $remaining = $pond.BaseMinProduceChance + ($pond.BaseMaxProduceChance - $pond.BaseMinProduceChance) * $population / 10
@@ -63,3 +63,4 @@ foreach ($species in @('Ke','Ni','Keegan','Konig','Ghost','Soap')) {
 Check (@($colors | Select-Object -Unique).Count -eq 6) 'Pond colors must be distinct.'
 $rows | Format-Table Pond, @{n='Raw/day';e={[Math]::Round($_.Raw,2)}}, @{n='Aged/day';e={[Math]::Round($_.Aged,2)}}, @{n='Artisan/day';e={[Math]::Round($_.Artisan,2)}}
 'PASS: native reward IDs/types, pond matching, colors, population gates and expected income (no buffs, 10 fish, daily collection; not in-game testing).'
+

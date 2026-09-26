@@ -57,7 +57,11 @@ $p.mailReceived.Add('Xinzh.KeniOctopus_SeaHareIntro')|Out-Null; Call StartDay
 $q=$p.questLog[0]
 $npc=[StardewValley.NPC]::new();$npc.Name='Demetrius'
 function Deliver($suffix,$probe=$false){$p.ActiveObject=[StardewValley.Item]::new();$p.ActiveObject.QualifiedItemId="(O)Xinzh.KeniOctopus_SeaHare$suffix"; Call OnDeliver @($npc,$p,$probe,$false)|Out-Null}
-Deliver Ke $true
+$p.ActiveObject=[StardewValley.Item]::new()
+$p.ActiveObject.QualifiedItemId='(O)Xinzh.KeniOctopus_SeaHareKe'
+$probeArgs=[object[]]@($npc,$p,$true,$false)
+$runOriginal=$type.GetMethod('OnDeliver',[Reflection.BindingFlags]'Static,NonPublic').Invoke($null,$probeArgs)
+Check (!$runOriginal -and $probeArgs[3]) 'Task probe incorrectly fell through to gifting'
 Check ($p.Consumed -eq 0) 'Probe consumed item'
 Deliver Ke; Deliver Ke
 Check ($p.Consumed -eq 1) 'Direct delivery failed or duplicate sample consumed'
@@ -66,5 +70,6 @@ Check ($p.Consumed -eq 6 -and $q.completed.Value -and $q.moneyReward.Value -eq 5
 Call Schedule;Call StartDay;Deliver Ke
 Check ($q.Completions -eq 1 -and @($p.mailForTomorrow|Where-Object {$_ -eq 'Xinzh.KeniOctopus_SeaHareReturn'}).Count -eq 1) 'Duplicate completion or mail'
 'PASS: survey level/date gates, letter acceptance, delivery probes, six deliveries without catching and reward deduplication (isolated stubs).'
+
 
 

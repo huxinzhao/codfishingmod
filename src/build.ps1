@@ -29,10 +29,11 @@ $references = [Microsoft.CodeAnalysis.MetadataReference[]]@(
 $trees = [Microsoft.CodeAnalysis.SyntaxTree[]]@(Get-ChildItem -LiteralPath $PSScriptRoot -Filter '*.cs' | ForEach-Object { [Microsoft.CodeAnalysis.CSharp.CSharpSyntaxTree]::ParseText((Get-Content -LiteralPath $_.FullName -Raw)) })
 $options = [Microsoft.CodeAnalysis.CSharp.CSharpCompilationOptions]::new([Microsoft.CodeAnalysis.OutputKind]::DynamicallyLinkedLibrary).WithOptimizationLevel([Microsoft.CodeAnalysis.OptimizationLevel]::Release)
 $compilation = [Microsoft.CodeAnalysis.CSharp.CSharpCompilation]::Create('CodFishingMod', $trees, $references, $options)
-$stream = [IO.File]::Create("$PSScriptRoot/../outputs/cod fishing mod/CodFishingMod.dll")
+$stream = [IO.File]::Create("$PSScriptRoot/../outputs/cod fishing mod/Runtime/CodFishingMod.dll")
 try {
     $result = $compilation.Emit($stream)
     $result.Diagnostics | ForEach-Object { $_.ToString() }
     if (!$result.Success) { throw 'Compilation failed' }
 } finally { $stream.Dispose() }
 Write-Output 'Compiled against installed Stardew Valley and SMAPI assemblies.'
+

@@ -1,0 +1,20 @@
+{
+  "Name": "cod fishing mod - Content",
+  "Author": "florain",
+  "Version": "1.6.1",
+  "Description": "Fish, ponds, gifts, letters and events for cod fishing mod.",
+  "UniqueID": "Xinzh.KeniOctopus.Content",
+  "ContentPackFor": {
+    "MinimumVersion": "2.9.0",
+    "UniqueID": "Pathoschild.ContentPatcher"
+  },
+  "MinimumApiVersion": "4.5.1",
+  "MinimumGameVersion": "1.6.15",
+  "Dependencies": [
+    {
+      "IsRequired": true,
+      "MinimumVersion": "1.6.0",
+      "UniqueID": "Xinzh.KeniOctopus"
+    }
+  ]
+}

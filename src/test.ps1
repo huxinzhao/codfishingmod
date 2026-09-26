@@ -3,7 +3,6 @@ $source=Get-Content "$PSScriptRoot/ModEntry.cs" -Raw
 $source=$source.Replace('namespace KeniOctopus.QuestRuntime;', 'namespace KeniOctopus.QuestRuntime {') + "`n}"
 $stubs=@'
 namespace KeniOctopus.QuestRuntime { internal static class SurveyRuntime { internal static void Initialize(StardewModdingAPI.IModHelper h,string id){} } }
-namespace KeniOctopus.QuestRuntime { internal static class ContentAssets { internal static void Initialize(StardewModdingAPI.IModHelper h){} } }
 namespace HarmonyLib {
  public class Harmony { public Harmony(string id){} public void Patch(object m, HarmonyMethod postfix=null, HarmonyMethod prefix=null){} }
  public class HarmonyMethod { public HarmonyMethod(System.Type t,string n){} }
@@ -122,11 +121,12 @@ $held.QualifiedItemId='(O)128'; Assert ($offer.Invoke($null,$argsForOffer)) 'Int
 $p.mailReceived.Clear(); Assert ($offer.Invoke($null,$argsForOffer)) 'Intercepted fish before quest capture'
 $p.mailReceived.Add('Xinzh.KeniOctopus_InvestigationCaught')|Out-Null; $p.Quests.Add($second)|Out-Null
 $argsForOffer[1]=[StardewValley.Farmer]::new(); Assert ($offer.Invoke($null,$argsForOffer)) 'Intercepted another player'
-$data=Get-Content "$PSScriptRoot/../outputs/cod fishing mod/data.json" -Raw|ConvertFrom-Json -AsHashtable
+$data=& "$PSScriptRoot/read-content-data.ps1"
 $eventKey=@($data.Events.FishShop.Keys)[0]
 Assert ($eventKey.Contains('!LocalMail Xinzh.KeniOctopus_InvestigationDone') -and $eventKey.Contains('HasItem (O)Xinzh.KeniOctopus_Fish')) 'Shop event does not share completion/possession checks'
 Assert ($data.Events.FishShop[$eventKey].Contains('AddMail Current Xinzh.KeniOctopus_InvestigationDone received')) 'Shop event no longer completes shared flag'
 $reward=@($data.TriggerActions|Where-Object Id -eq 'Xinzh.KeniOctopus_SendWillyReward')[0]
 Assert ($reward.Trigger -eq 'DayEnding' -and $reward.Condition.Contains('!PLAYER_HAS_MAIL Current Xinzh.KeniOctopus_WillyReward') -and $reward.Actions[0].EndsWith(' tomorrow')) 'Reward lost its next-day/deduplication gate'
 'PASS: manual inspection, probes, retained fish, repeat offers, NPC/player scope and shared shop/reward gates.'
+
 

@@ -5,6 +5,12 @@
 为星露谷的海洋增添奇妙的新住客与钓鱼故事。支持简体中文和英文。
 New sea creatures and fishing stories for Stardew Valley, in Simplified Chinese and English.
 
+![Ocean creatures](docs/images/ocean.png)
+![Special ponds and produce](docs/images/ponds.png)
+![Aquarium display](docs/images/aquarium.png)
+
+宣传素材合成图；鱼缸中的帽子是展示装饰。 / Promotional composites; aquarium hats are decorative artwork.
+
 ## 下载与安装 / Download and install
 
 **[下载可直接安装的最新版 / Download the latest release](https://github.com/huxinzhao/codfishingmod/releases/latest)**
@@ -16,13 +22,26 @@ New sea creatures and fishing stories for Stardew Valley, in Simplified Chinese 
 Download the cod-fishing-mod-VERSION.zip release asset and extract its cod fishing mod folder into Mods. GitHub's source-code archives do not include the compiled DLL.
 
 - Stardew Valley **1.6.15+**；SMAPI **4.5.1+**。
-- 无需其他前置模组 / No other mods required.
+- Content Patcher **2.9.0+**（自 1.6.0 起需要 / required starting with 1.6.0）。
 - 从 1.5.4 起，SMAPI 会检查 Nexus 新版本并提供下载提示，不会自动安装更新。 / Starting with 1.5.4, SMAPI checks Nexus for updates and provides a download link; it does not install updates automatically.
 - [中文安装说明](outputs/cod%20fishing%20mod/安装说明.txt) · [English installation guide](outputs/cod%20fishing%20mod/INSTALL.txt)
 
 更新前备份存档。旧版特殊订单不再自动迁移；请先在旧版完成，或通过 1.4.0–1.5.0 迁移并保存。新版普通任务进度可以保留。勿同时安装旧版两个文件夹和新版文件夹。
 
 Back up your save before updating. Legacy special orders are no longer migrated automatically: finish them on the old version, or migrate and save using 1.4.0–1.5.0 first. Current ordinary quest progress is retained. Remove the old two-folder installation before installing this version.
+
+升级到 1.6.0 时，先完整删除旧的 cod fishing mod 安装文件夹，再解压新版；不要覆盖合并。Content 和 Runtime 必须一起安装。物品 ID 与普通任务进度保持兼容。
+
+For 1.6.0, remove the old installation folder before extracting; do not merge it. Keep Content and Runtime together. Existing item IDs and ordinary quest progress are preserved.
+
+## 架构 / Architecture
+
+- Content：Content Patcher 的 Load / EditData / EditImage 补丁，管理鱼、贴图、鱼缸、鱼塘、礼物喜好、信件、任务数据与事件。使用原生 i18n 和每日随机 token。
+- Runtime：只处理任务状态、手动交付、任务进度显示及可选的 Lookup Anything 标题兼容。没有自定义资源加载器。
+- Runtime/i18n 由 src/sync-text.ps1 从 Content/i18n 自动提取；请在 Content/i18n 或文案审阅稿中编辑。
+- 礼物喜好使用追加操作，不再主动移除其他模组为这些鱼设置的喜好。若另一个模组也修改同一鱼的喜好，最终结果取决于游戏规则和补丁顺序。
+
+Content uses standard Content Patcher Load/EditData/EditImage, translation and daily Random tokens. Runtime retains quest state, manual hand-in, journal progress and optional Lookup Anything heading compatibility. Runtime translations are generated from Content/i18n. Gift edits append only; other mods' preferences are preserved rather than forcibly removed.
 
 ## 开发 / Development
 
@@ -44,7 +63,7 @@ pwsh -File ./src/package.ps1
 
 Alternatively, set STARDEW_GAME_PATH and omit -GameDir. Checks run in separate processes to avoid stub-type conflicts. These checks do not replace in-game testing.
 
-构建结果 / Build output: outputs/cod fishing mod/CodFishingMod.dll.
+构建结果 / Build output: outputs/cod fishing mod/Runtime/CodFishingMod.dll.
 
 ## 文案维护 / Editing translations
 
@@ -64,3 +83,5 @@ Edit the review, then run Import. Edit both languages yourself; the script does 
 模组名称、作者与安装说明不由 Import 修改。请直接编辑 manifest.json、安装说明.txt 和 INSTALL.txt，再执行 Export。
 
 Import does not modify metadata or installation guides. Edit those files directly, then run Export.
+
+

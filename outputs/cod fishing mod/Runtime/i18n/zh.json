@@ -1,0 +1,15 @@
+{
+  "dialogue.demetrius.complete": "这对我的研究很有帮助！#$b#什么？你说接下委托后才第一次在海里见到这些生物？哈哈……怎么会呢。",
+  "dialogue.demetrius.sample": "这份样本我收下了，还有其他种类要收集，加油啊，@。",
+  "dialogue.willy.inspection.1": "嗯……这章鱼的模样可真奇怪。我在这片海上打了这么多年鱼，还从没见过这种大家伙！#$b#真有意思，我会把它的消息告诉钓鱼协会。#$b#你可以自己留着这只怪章鱼，把它好好养在鱼塘里的话，说不定会有什么额外收获。$h",
+  "error.inspection-quest-unavailable": "无法加载威利查看章鱼的任务，已保留原来的任务。",
+  "fish.seahare.ghost.name": "海兔鬼",
+  "fish.seahare.ke.name": "海兔克",
+  "fish.seahare.keegan.name": "海兔基根",
+  "fish.seahare.konig.name": "海兔柯",
+  "fish.seahare.ni.name": "海兔尼",
+  "fish.seahare.soap.name": "海兔皂",
+  "survey.already-delivered": "这一种的样本已经收到过了，找找其他的吧。",
+  "survey.progress": "{{fish}}：已提交 {{delivered}}/1",
+  "warning.lookup-compatibility-unavailable": "无法启用 Lookup Anything 名称显示兼容；其他模组功能不受影响。"
+}

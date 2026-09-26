@@ -32,7 +32,7 @@
   "quest.seahares.objective": "将六种海兔各交给德米特里一条。",
   "quest.seahares.description": "德米特里想请你协助调查最近海洋中新出现的奇妙生物。",
   "mail.demetrius.intro.title": "德米特里的水域调查",
-  "mail.demetrius.intro.body": "嘿，@：^^听说你的钓鱼技术已经相当熟练了。我正在进行一项海洋生物调查，方便的话希望你能帮忙收集几份样本。最近海域里出现了一些以前没有目击过的奇妙生物。它们的活动时间和偏好的天气都有所不同，有空的话不妨多去海边看看。^^——德米特里",
+  "mail.demetrius.intro.body": "嘿，@：^^我正在进行一项海洋生物调查，方便的话希望你能帮忙收集几份样本。最近海域里出现了一些以前没有目击过的奇妙生物。它们的活动时间和偏好的天气都有所不同，有空的话不妨多去海边看看。^^——德米特里",
   "error.inspection-quest-unavailable": "无法加载威利查看章鱼的任务，已保留原来的任务。",
   "warning.lookup-compatibility-unavailable": "无法启用 Lookup Anything 名称显示兼容；其他模组功能不受影响。",
   "survey.already-delivered": "这一种的样本已经收到过了，找找其他的吧。",

@@ -1,5 +1,8 @@
 # Generated release archives and compiled binaries
 outputs/*.zip
+# Local release staging, extracted vanilla art and promotional working files
+outputs/*
+!outputs/cod fishing mod/
 *.dll
 *.pdb
 bin/
